@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+        
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+
+        <!-- Styles -->
+        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+        <style>
+            body {
+                padding: 25px;
+                background-color: white;
+                color: #222;
+                font-size: 25px;
+                transition: 0.3s ease-in-out;
+            }
+            .dark-mode {
+                background-color: #222;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <v-container>
+                <v-app-bar dense app>
+                    <v-toolbar-title>App Name</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn icon id="light_btn" onclick="disableDarkMode()">
+                        <v-icon>mdi-white-balance-sunny</v-icon>
+                    </v-btn>
+                    <v-btn icon id="dark_btn" onclick="enableDarkMode()">
+                        <v-icon>mdi-weather-night</v-icon>
+                    </v-btn>
+                </v-app-bar>
+            </v-container>
+        </div>
+
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+        <script> new Vue({ el: '#app', vuetify: new Vuetify(), }) </script>
+
+        <script>
+            let darkMode = localStorage.getItem("darkMode");
+            const lightModeToggle = document.querySelector("#light_btn");
+            const darkModeToggle = document.querySelector("#dark_btn");
+
+            if (darkMode == "enable") {
+                document.body.classList.add("dark-mode");
+
+                darkModeToggle.setAttribute("hidden", "");
+                lightModeToggle.removeAttribute("hidden", "");
+            }
+            else {
+                document.body.classList.remove("dark-mode");
+
+                darkModeToggle.removeAttribute("hidden", "");
+                lightModeToggle.setAttribute("hidden", "");
+            }
+
+            function enableDarkMode() {
+                document.body.classList.add("dark-mode");
+
+                localStorage.setItem("darkMode", "enable");
+
+                darkModeToggle.setAttribute("hidden", "");
+                lightModeToggle.removeAttribute("hidden", "");
+
+            }
+            function disableDarkMode() {
+                document.body.classList.remove("dark-mode");
+
+                localStorage.setItem("darkMode", null);
+
+                darkModeToggle.removeAttribute("hidden", "");
+                lightModeToggle.setAttribute("hidden", "");
+            }
+        </script>
+    </body>
+</html>
